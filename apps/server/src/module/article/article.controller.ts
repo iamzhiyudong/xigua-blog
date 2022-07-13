@@ -9,14 +9,15 @@ import {
 } from '@nestjs/common';
 import { CreateArticleDto } from './dto/article.dto';
 import { ArticleService } from './article.service';
+import { Article } from '../../entity/article.entity';
 
 @Controller('article')
 export class ArticleController {
   constructor(private readonly articleService: ArticleService) {}
 
   @Get()
-  findAll(): string {
-    return this.articleService.getHello();
+  findAll(): Promise<Article[]> {
+    return this.articleService.findAll();
   }
 
   @Get(':id')

@@ -1,8 +1,16 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Article } from '../../entity/article.entity';
 
 @Injectable()
 export class ArticleService {
-  getHello(): string {
-    return 'Hello World! >>> Server - article';
+  constructor(
+    @InjectRepository(Article)
+    private readonly articleRepository: Repository<Article>,
+  ) {}
+
+  async findAll(): Promise<Article[]> {
+    return await this.articleRepository.find();
   }
 }
